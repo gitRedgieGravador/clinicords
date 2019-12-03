@@ -12,16 +12,13 @@ export default class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      users:[],
+      users: [],
       isNotAllowed: false,
-      id:null,
-      fullname:null,
-      profession:null,
-      toUpdate:false,
-      toAddUser:false
-      
-      
-
+      id: null,
+      fullname: null,
+      profession: null,
+      toUpdate: false,
+      toAddUser: false
     };
     this.onUserSelect = this.onUserSelect.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
@@ -30,41 +27,52 @@ export default class Admin extends Component {
     let isAdminLocal = localStorage.getItem("isAdmin");
     if (isAdminLocal === "true") {
       this.setState({ isNotAllowed: false });
-      this.getNow()
+      this.getNow();
     } else {
       this.setState({ isNotAllowed: true });
     }
-    
   }
   getNow = () => {
     req
       .getUsers()
       .then(resp => {
+        console.log(resp);
         var tempArray = [];
         let datai = resp.data.data;
-        for (let i = 0; i < datai.length; ++i) {      
-          if(i>=1){
-          let myobj = {
-            id: datai[i]._id,
-            fullname: datai[i].firstname + " " + datai[i].lastname,
-            profession: datai[i].profession,
+
+        datai.forEach(element => {
+          if (!element.isAdmin) {
+            let myobj = {
+              id: element._id,
+              fullname: element.firstname + " " + element.lastname,
+              profession: element.profession
+            };
+            tempArray.push(myobj);
           }
-          tempArray.push(myobj);  
-        }
-        }
+        });
+        // for (let i = 0; i < datai.length; ++i) {
+        //   if (i >= 0 && !datai[i].isAdmin) {
+        //     let myobj = {
+        //       id: datai[i]._id,
+        //       fullname: datai[i].firstname + " " + datai[i].lastname,
+        //       profession: datai[i].profession
+        //     };
+        //     tempArray.push(myobj);
+        //   }
+        // }
         this.setState({ users: tempArray });
-        console.log("array ", this.state.users)           
+        console.log("array ", this.state.users);
       })
       .catch(err => {
-        console.log("error on getting records",err);
+        console.log("error on getting records", err);
       });
   };
-  userEdit =()=>{
-    this.setState({toUpdate:true})
-  }
-  userAdd =()=>{
-    this.setState({toAddUser:true})
-  }
+  userEdit = () => {
+    this.setState({ toUpdate: true });
+  };
+  userAdd = () => {
+    this.setState({ toAddUser: true });
+  };
   async onUserSelect(e) {
     await this.setState({
       displayDialog: true,
@@ -85,14 +93,16 @@ export default class Admin extends Component {
       });
   }
 
- 
-  
   render() {
     if (this.state.isNotAllowed === true) {
       return <Redirect to={{ pathname: "/" }} />;
     }
-    if(this.state.toUpdate===true){
-      return <Redirect to={{pathname:"/updateuser",state:{id:this.state.id}}} />
+    if (this.state.toUpdate === true) {
+      return (
+        <Redirect
+          to={{ pathname: "/updateuser", state: { id: this.state.id } }}
+        />
+      );
     }
     if (this.state.toAddUser === true) {
       return <Redirect to={{ pathname: "/create" }} />;
@@ -117,38 +127,39 @@ export default class Admin extends Component {
     );
     return (
       <div>
-          <nav className="navbar navbar-expand-lg navbar-light hheader ">
-            <a className="navbar-brand">
-              <img src={logos} width="150" height="80" />
-            </a>
-            <div className="collpase nav-collapse">
-              <ul className="navbar-nav mr-auto">
-                {/* <li className="navbar-item">
+        <nav className="navbar navbar-expand-lg navbar-light hheader ">
+          <a className="navbar-brand">
+            <img src={logos} width="150" height="80" />
+          </a>
+          <div className="collpase nav-collapse">
+            <ul className="navbar-nav mr-auto">
+              {/* <li className="navbar-item">
                   <Link to="/create" className="nav-link">
                     Create Account
                   </Link>
                 </li> */}
-                <Button
-                    label="Add User"
-                    className="p-button-success"
-                    style={{ marginLeft: 4 }}
-                    onClick={this.userAdd}
-                  />
-                <li>
-                  <div className="form-group">
-                    <Link to="/">
-                      <input
-                        type="submit"
-                        value="Logout"
-                        className="btn btn-primary"
-                      ></input>
-                    </Link>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </nav>
-          <br/><br/>
+              <Button
+                label="Add User"
+                className="p-button-success"
+                style={{ marginLeft: 4 }}
+                onClick={this.userAdd}
+              />
+              <li>
+                <div className="form-group">
+                  <Link to="/">
+                    <input
+                      type="submit"
+                      value="Logout"
+                      className="btn btn-primary"
+                    ></input>
+                  </Link>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <br />
+        <br />
         <Card className="add-card">
           <div className="content-section implementation">
             <DataTable
