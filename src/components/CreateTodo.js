@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { Redirect,Link } from "react-router-dom";
-import { Card, Form, Segment, Button } from "semantic-ui-react";
+import { Card, Form, Segment, Button, Icon } from "semantic-ui-react";
 import req from "../helper/api";
 
 export default class CreateTodo extends Component {
@@ -18,7 +18,11 @@ export default class CreateTodo extends Component {
       todo_completed: false,
       values: [],
       toAdminHome: false,
-      updating: false
+      updating: false,
+      hidden1: true,
+      hidden2: true,
+      eyeIcon1: "eye slash",
+      eyeIcon2: "eye slash",
     };
     this.updateForUsers = this.updateForUsers.bind(this);
   }
@@ -109,6 +113,20 @@ export default class CreateTodo extends Component {
         console.log("error on getting records");
       });
   };
+  handleEyeClickpass1 = () => {
+    if (this.state.hidden1) {
+      this.setState({ eyeIcon1: "eye", hidden1: false });
+    } else {
+      this.setState({ eyeIcon1: "eye slash", hidden1: true });
+    }
+  };
+  handleEyeClickpass2 = () => {
+    if (this.state.hidden2) {
+      this.setState({ eyeIcon2: "eye", hidden2: false });
+    } else {
+      this.setState({ eyeIcon2: "eye slash", hidden2: true });
+    }
+  };
 
   render() {
     if (this.state.toAdminHome === true) {
@@ -155,7 +173,6 @@ export default class CreateTodo extends Component {
                 <center>{pageTitle}</center>
               </div><br/><br/>
               <div>
-                {/* <h1>Create Users</h1> */}
                 <Form.Input
                   fluid
                   value={this.state.firstname}
@@ -199,7 +216,8 @@ export default class CreateTodo extends Component {
                 <Form.Input
                   fluid
                   value={this.state.password}
-                  type="password"
+                  type={this.state.hidden1 ? "password" : "text"}
+                  icon={<Icon name={this.state.eyeIcon1} link onClick={this.handleEyeClickpass1} />}
                   label="Password"
                   placeholder="password"
                   onChange={e => this.setState({ password: e.target.value })}
@@ -207,7 +225,8 @@ export default class CreateTodo extends Component {
                 <Form.Input
                   fluid
                   value={this.state.repeatpass}                  
-                  type="password"
+                  type={this.state.hidden2 ? "password" : "text"}
+                  icon={<Icon name={this.state.eyeIcon2} link onClick={this.handleEyeClickpass2} />}
                   label="Repeat Password"
                   placeholder="repeat password"
                   onChange={e => this.setState({ repeatpass: e.target.value })}

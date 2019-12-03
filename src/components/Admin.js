@@ -26,15 +26,15 @@ export default class Admin extends Component {
     this.onUserSelect = this.onUserSelect.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
-  componentWillMount() {
+  componentDidMount() {
     let isAdminLocal = localStorage.getItem("isAdmin");
     if (isAdminLocal === "true") {
       this.setState({ isNotAllowed: false });
-      
+      this.getNow()
     } else {
       this.setState({ isNotAllowed: true });
     }
-    this.getNow()
+    
   }
   getNow = () => {
     req
@@ -42,23 +42,18 @@ export default class Admin extends Component {
       .then(resp => {
         var tempArray = [];
         let datai = resp.data.data;
-        for (let i = 0; i < datai.length; ++i) {
-          
-          if(i>1){
-
-         
+        for (let i = 0; i < datai.length; ++i) {      
+          if(i>=1){
           let myobj = {
             id: datai[i]._id,
             fullname: datai[i].firstname + " " + datai[i].lastname,
             profession: datai[i].profession,
           }
-          tempArray.push(myobj);
-          
+          tempArray.push(myobj);  
         }
         }
         this.setState({ users: tempArray });
-        console.log("array ", this.state.users)
-           
+        console.log("array ", this.state.users)           
       })
       .catch(err => {
         console.log("error on getting records",err);
@@ -78,7 +73,6 @@ export default class Admin extends Component {
       profession: e.data.profession
     });
   }
-
   async handleDelete(e) {
     await req
       .deleteUser(this.state.id)
@@ -90,6 +84,8 @@ export default class Admin extends Component {
         console.log(err);
       });
   }
+
+ 
   
   render() {
     if (this.state.isNotAllowed === true) {
