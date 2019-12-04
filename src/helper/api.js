@@ -111,6 +111,8 @@ function updateRecords(id,body) {
     })
 }
 
+
+
 // Users
 function addUser(body) {
     return new Promise((resolve, reject)=>{
@@ -183,5 +185,5 @@ export default {
     deleteUser,
     updatePass,
     updateRecords
-
+  
 }

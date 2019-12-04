@@ -96,6 +96,18 @@ InputText {
 .block {
   width: 100%;
 }
+#heads{
+  margin-left: -70%;
+  margin-right: -88%;
+}
+#heads1{
+  margin-left: -40%;
+  margin-right: -88%;
+}
+#adminhead{
+  margin-left: -40%;
+  margin-right: -88%;
+}
 #sex {
   margin-right: 10px;
 }
@@ -115,6 +127,10 @@ InputText {
   background-image: url("..//assets/login.jpg");
 }
 #infopatient {
+  font-family: fantasy;
+  font-size: 50px;
+}
+#record {
   font-family: fantasy;
   font-size: 50px;
 }
@@ -139,8 +155,9 @@ InputText {
 }
 .mydecor {
   text-decoration: underline;
-  /* color: rgb(49, 48, 48);
-  text-shadow: 5px 3px rgb(3, 3, 3); */
+  color:rgb(24, 119, 148);
+  font-family: fantasy;
+  font-size: 50px;
 }
 .Login {
   height: 100%;
@@ -236,4 +253,7 @@ InputText {
   margin-top:20%;
   margin-left: 50%;
   text-align: center;
+}
+h1{
+  color:rgb(24, 119, 148);
 }

@@ -3,14 +3,16 @@ import { Menubar } from "primereact/menubar";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Card } from "primereact/card";
-import { Button } from "primereact/button";
+// import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import App from "../styles/App.css";
 import req from "../helper/api";
 import { Link } from "react-router-dom";
-import { Form, Segment } from "semantic-ui-react";
+import { Form, Segment, Icon } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
 import logo from "..//assets/logo.png";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button } from "react-bootstrap";
 export default class Menu extends Component {
   constructor() {
     super();
@@ -140,46 +142,34 @@ export default class Menu extends Component {
           <div className="collpase nav-collapse">
             <ul className="navbar-nav mr-auto">
               <li>
-                {/* <div className="form-group"> */}
-               
+                <div>
                   <Link to="/home">
-                    <Button label="Home" />
+                    <Button variant="outline-info" inverted>
+                      <Icon name='home' /> Home
+                  </Button>
                   </Link>
-                  <Button
-                    label="Add Patient"
-                    className="p-button-success"
-                    style={{ marginLeft: 4 }}
-                    onClick={this.gotoAddPatient}
-                  />
+                </div>
+              </li>
+              <li>
+                <div>
+                  <Button variant="outline-info" id="heads"
+                    onClick={this.gotoAddPatient} inverted>
+                    <Icon name='add' /> Add Patient
+                    </Button>
+                </div>
+              </li>
+              <li>
+                <div>
                   <Link to="/">
-                    <Button
-                      label="Logout"
-                      className="p-button-success"
-                      style={{ marginLeft: 4 }}
-                      onClick={this.onClick}
-                    />
+                    <Button variant="outline-info"id="heads1"
+                      onClick={this.onClick} inverted>
+                      <Icon name='checkmark' /> Logout
+                    </Button>
                   </Link>
-                {/* </div> */}
+                </div>
               </li>
             </ul>
           </div>
-          {/* <Link to="/home">
-            <Button label="Home" />
-          </Link>
-          <Button
-            label="Add Patient"
-            className="p-button-success"
-            style={{ marginLeft: 4 }}
-            onClick={this.gotoAddPatient}
-          />
-          <Link to="/">
-            <Button
-              label="Logout"
-              className="p-button-success"
-              style={{ marginLeft: 4 }}
-              onClick={this.onClick}
-            />
-          </Link> */}
         </nav>
         {/* </Menubar> */}
         <br />
@@ -213,18 +203,16 @@ export default class Menu extends Component {
               <br />
               <div className="p-grid">
                 <div className="p-col">
-                  <Button
-                    className="block"
-                    onClick={this.dialogAlert}
-                    label="Edit"
-                  />
+                  <Button variant="outline-success" className="block"
+                     onClick={this.dialogAlert} inverted>
+                      <Icon name='checkmark' /> Edit
+                    </Button>
                 </div>
                 <div className="p-col">
-                  <Button
-                    className="block p-button-danger"
-                    onClick={this.handleDelete}
-                    label="Delete"
-                  />
+                  <Button variant="outline-danger" className="block"
+                    onClick={this.handleDelete} inverted>
+                    <Icon name='remove' /> Delete
+                  </Button>
                 </div>
               </div>
             </Dialog>

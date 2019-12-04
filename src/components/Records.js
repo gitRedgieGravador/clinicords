@@ -48,6 +48,7 @@ export default class Records extends Component {
       today: new Date().toLocaleString()
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.editForRecords = this.editForRecords.bind(this);
   }
 
   componentDidMount() {
@@ -198,18 +199,39 @@ export default class Records extends Component {
     this.setState({ visible: true });
   };
 
+  async editForRecords(e) {
+      e.preventDefault();
+      const body = {
+        title: this.state.title,
+        findings: this.state.findings,
+        name: this.state.name
+      };
+      await req
+        .updateRecords(this.props.location.state.id, body)
+        .then(resp => {
+          this.setState({ toAdminHome: true });
+          console.log("updaterecord: ", resp);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+    handleCancel = () => {
+      this.setState({ visible: true });
+    };
+
   render() {
     if (this.state.toHome === true) {
       return <Redirect to="/home" />;
     }
     const { open, size } = this.state;
     const pageTitle = this.state.updating ? (
-      <h1>Clinical Record Form</h1>
+      <h1 id="record">Clinical Record Form</h1>
     ) : (
       <h1 id="infopatient">Patient Information</h1>
     );
     const allmedicalrecords = this.state.medRecords.map(element =>
-      <div><AddedRecords record={element}/><br/></div>);
+      <div><AddedRecords   record={element}/><br/></div>);
     //add medical records
     const addmed = this.state.updating ? (
       <div>
@@ -220,7 +242,6 @@ export default class Records extends Component {
           Add Medical Record
         </Button>
         <div>
-        {/* style={{width:"67%",height:"68%",marginLeft:"16.8%",marginTop:"7%"}} */}
           <Modal  size={size} open={open} onClose={this.close}>
             <Modal.Header>Add Medical Record </Modal.Header>
             <Modal.Content>
@@ -231,18 +252,21 @@ export default class Records extends Component {
                   <Form.Input
                     fluid
                     label="Condition: "
+                    value={this.state.title}
                     placeholder="What is Patient's Condition? "
                     onChange={e => this.setState({ title: e.target.value })}
                   />
                   <b><p>Findings:</p></b>
                   <TextArea
                     placeholder="What is your findings? "
+                    value={this.state.findings}
                     onChange={e => this.setState({ findings: e.target.value })}
                   /><br/><br/>
                   <Form.Input
                     fluid
                     label="Primary Care Physician/Clinician  Name: "
                     placeholder="Fullname"
+                    value={this.state.pcpName}
                     onChange={e => this.setState({ pcpName: e.target.value })}
                   /><br/>
                 </div>

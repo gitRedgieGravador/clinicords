@@ -4,9 +4,12 @@ import logos from "../assets/logo.png";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Card } from "primereact/card";
-import { Button } from "primereact/button";
+// import { Button } from "primereact/button";
+import { Button } from "react-bootstrap";
 import { Dialog } from "primereact/dialog";
 import req from "../helper/api";
+import {Icon } from "semantic-ui-react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default class Admin extends Component {
   constructor(props) {
@@ -133,25 +136,21 @@ export default class Admin extends Component {
           </a>
           <div className="collpase nav-collapse">
             <ul className="navbar-nav mr-auto">
-              {/* <li className="navbar-item">
-                  <Link to="/create" className="nav-link">
-                    Create Account
-                  </Link>
-                </li> */}
-              <Button
-                label="Add User"
-                className="p-button-success"
-                style={{ marginLeft: 4 }}
-                onClick={this.userAdd}
-              />
+              <li>
+                <div>
+                  <Button variant="outline-info"
+                    onClick={this.userAdd} inverted>
+                    <Icon name='add' /> Add User
+                    </Button>
+                </div>
+              </li>
               <li>
                 <div className="form-group">
                   <Link to="/">
-                    <input
-                      type="submit"
-                      value="Logout"
-                      className="btn btn-primary"
-                    ></input>
+                    <Button variant="outline-info"
+                      onClick={this.handleClose} inverted>
+                      <Icon name='checkmark' /> Logout
+                    </Button>
                   </Link>
                 </div>
               </li>
@@ -189,18 +188,16 @@ export default class Admin extends Component {
               <br />
               <div className="p-grid">
                 <div className="p-col">
-                  <Button
-                    className="block"
-                    onClick={this.userEdit}
-                    label="Edit"
-                  />
+                <Button variant="outline-success" className="block"
+                     onClick={this.userEdit} inverted>
+                      <Icon name='checkmark' /> Edit
+                    </Button>
                 </div>
                 <div className="p-col">
-                  <Button
-                    className="block p-button-danger"
-                    onClick={this.handleDelete}
-                    label="Delete"
-                  />
+                   <Button variant="outline-danger" className="block"
+                     onClick={this.handleDelete} inverted>
+                      <Icon name='remove' /> Delete
+                    </Button>
                 </div>
               </div>
             </Dialog>
