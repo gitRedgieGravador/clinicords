@@ -138,7 +138,7 @@ export default class Admin extends Component {
             <ul className="navbar-nav mr-auto">
               <li>
                 <div>
-                  <Button variant="outline-info"
+                  <Button variant="outline-info" id = "adminhead"
                     onClick={this.userAdd} inverted>
                     <Icon name='add' /> Add User
                     </Button>

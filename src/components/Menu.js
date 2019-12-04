@@ -157,6 +157,7 @@ export default class Menu extends Component {
                     <Icon name='add' /> Add Patient
                     </Button>
                 </div>
+                {/* jigdofjtyoer */}
               </li>
               <li>
                 <div>
