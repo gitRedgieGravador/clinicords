@@ -34,19 +34,6 @@
   }
 }
 
- /* background-image: url("..//assets/logo.png"); */
-/* #head {
- 
-  background-color: #09d3ac;
-  box-shadow: 1px 5px #888888;
-  height: 70px;
-  width: auto;
-  padding-top: 3px;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-} */
-
 label {
   margin-left: 130px;
 }
@@ -55,7 +42,7 @@ label {
 }
 .p-button-text {
   color: black;
-  font-family: cursive;
+  font-family: ubuntu;
   -webkit-backdrop-filter: blur();
   -webkit-filter: drop-shadow();
 }
@@ -126,18 +113,11 @@ InputText {
   background-size: cover;
   background-image: url("..//assets/login.jpg");
 }
-#infopatient {
+.title-text {
   font-family: fantasy;
   font-size: 50px;
 }
-#record {
-  font-family: fantasy;
-  font-size: 50px;
-}
-#infouser {
-  font-family: fantasy;
-  font-size: 50px;
-}
+
 #segment {
   border-radius: 0px;
   background-color: 1px 5px #09d3ac;
@@ -222,10 +202,7 @@ InputText {
 .addrecord{
   width: 50%;
 }
-/* .logo{
-  height: 70px;
-  margin-right: 50%;
-} */
+
 #card_user{
   position: relative;
   width:50%;
@@ -243,7 +220,6 @@ InputText {
 .hheader{
   background-color: rgb(21, 240, 211);
   box-shadow: 1px 5px #888888;
-  /* padding-top: 3px; */
   position: sticky;
   top: 0;
   z-index: 2;
@@ -259,4 +235,22 @@ InputText {
 }
 h1{
   color:rgb(24, 119, 148);
+}
+#modal{
+  height:60%;
+  top:15%;
+
+  margin-left:8%;
+  margin-right: 5%;
+}
+#inputsearch{
+  background-color: #00ffcc7c;
+}
+body .p-datatable .p-datatable-header{
+  background-color: red;
+}
+.emercontact{
+  font-family: Ubuntu;
+  font-size: 25px;
+  color: #2c7edb;
 }

@@ -47,16 +47,15 @@ export default class Menu extends Component {
       .then(resp => {
         var tempArray = [];
         let datai = resp.data.data;
-        for (let i = 0; i < datai.length; ++i) {
+        datai.forEach(element => {
           let myobj = {
-            id: datai[i]._id,
-            Name: datai[i].fname + " " + datai[i].lname,
-            Age: datai[i].age,
-            Date: new Date(datai[i].currentdate).toLocaleString()
-          };
-
+            id: element._id,
+            Name: element.fname + " " + element.lname,
+            Age: element.age,
+            Date: new Date(element.currentdate).toDateString()
+          }
           tempArray.push(myobj);
-        }
+        });
         this.setState({ patients: tempArray });
       })
       .catch(err => {
@@ -112,8 +111,8 @@ export default class Menu extends Component {
       return <Redirect to={{ pathname: "/addpatient" }} />;
     }
     let header = (
-      <div>
-        <div style={{ lineHeight: "1.87em" }}>
+      <div >
+        <div style={{ lineHeight: "1.87em"}}>
           <h1 className="mydecor">Current Patients</h1>
         </div>
         <div>
@@ -124,24 +123,20 @@ export default class Menu extends Component {
             placeholder="Search for patient"
             value={this.state.fname}
             onChange={e => this.setState({ globalFilter: e.target.value })}
-            id="input"
+            id="inputsearch"
           />
         </div>
       </div>
     );
     return (
       <div>
-        {/* <div className="content-section implementation"> */}
-
-        {/* <Menubar id="head" model={this.state.items}>
-          <img src={login} width="200"  height="70"/> */}
         <nav className="navbar navbar-expand-lg navbar-light hheader ">
           <a className="navbar-brand">
             <img src={logo} width="150" height="80" />
           </a>
           <div className="collpase nav-collapse">
             <ul className="navbar-nav mr-auto">
-              <li>
+              {/* <li>
                 <div>
                   <Link to="/home">
                     <Button variant="outline-info" inverted>
@@ -149,7 +144,7 @@ export default class Menu extends Component {
                   </Button>
                   </Link>
                 </div>
-              </li>
+              </li> */}
               <li>
                 <div>
                   <Button variant="outline-info" id="heads"
@@ -157,7 +152,6 @@ export default class Menu extends Component {
                     <Icon name='add' /> Add Patient
                     </Button>
                 </div>
-                {/* jigdofjtyoer */}
               </li>
               <li>
                 <div>
@@ -176,10 +170,10 @@ export default class Menu extends Component {
         <br />
         <Card className="add-card">
           <div className="content-section implementation">
-            <DataTable
+            <DataTable 
               filter={true}
               value={this.state.patients}
-              header={header}
+              header={header }
               globalFilter={this.state.globalFilter}
               emptyMessage="No records found"
               selectionMode="single"
@@ -206,7 +200,7 @@ export default class Menu extends Component {
                 <div className="p-col">
                   <Button variant="outline-success" className="block"
                      onClick={this.dialogAlert} inverted>
-                      <Icon name='checkmark' /> Edit
+                      <Icon name='edit' /> Edit
                     </Button>
                 </div>
                 <div className="p-col">

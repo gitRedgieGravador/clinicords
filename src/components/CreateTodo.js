@@ -133,9 +133,9 @@ export default class CreateTodo extends Component {
       return <Redirect to="/admin" />
     }
     const pageTitle = this.state.updating ? (
-      <h1>Update User Information</h1>
+      <h1 className="title-text">Update User Information</h1>
     ) : (
-      <h1 id="infouser">User Information</h1>
+      <h1 className="title-text">User Information</h1>
     );
     const update = this.state.updating ? (
       <div>
@@ -190,11 +190,12 @@ export default class CreateTodo extends Component {
                   placeholder="repeat password" onChange={e => this.setState({ repeatpass: e.target.value })} />
                 <br />
                 <div>{update}</div>
-                <br />
+               
               </div>
             </Form>
           </div>
         </Card>
+        <br/>
       </div>
     );
   }

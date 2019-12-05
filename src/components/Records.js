@@ -45,7 +45,9 @@ export default class Records extends Component {
       ],
       toHome: false,
       updating: false,
-      today: new Date().toLocaleString()
+      today: new Date().toLocaleString(),
+      editingRecord: false,
+      indRecID: null
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.editForRecords = this.editForRecords.bind(this);
@@ -160,7 +162,7 @@ export default class Records extends Component {
     e.preventDefault();
     this.setState({ sex });
   };
-  show = size => () => this.setState({ size, open: true });
+  show = size => () => this.setState({ size, open: true ,title:"",findings:"",pcpName:""});
   close = () => this.setState({ open: false });
   getNow = () => {
     req
@@ -168,17 +170,17 @@ export default class Records extends Component {
       .then(resp => {
         var tempArray = [];
         let datai = resp.data.info;
-        for (let i = 0; i < datai.length; ++i) {
+        datai.forEach(element=>{
           let myobj = {
-            ownerID: datai[i].ownerID,
-            date: new Date(datai[i].date).toLocaleString(),
-            title: datai[i].title,
-            findings: datai[i].findings,
-            name: datai[i].pcpName
+            ownerID: element.ownerID,
+            date: new Date(element.date).toLocaleString(),
+            title: element.title,
+            findings: element.findings,
+            name: element.pcpName,
+            recordID: element._id
           };
-
           tempArray.push(myobj);
-        }
+        })
         this.setState({ medRecords: tempArray });
       })
       .catch(err => {
@@ -198,18 +200,19 @@ export default class Records extends Component {
   onClick = () => {
     this.setState({ visible: true });
   };
-
   async editForRecords(e) {
       e.preventDefault();
       const body = {
         title: this.state.title,
         findings: this.state.findings,
-        name: this.state.name
+        pcpName: this.state.pcpName
       };
+      console.log("body: ", body)
       await req
-        .updateRecords(this.props.location.state.id, body)
+        .updateRecords(this.state.indRecID, body)
         .then(resp => {
-          this.setState({ toAdminHome: true });
+          this.getNow()
+          this.setState({open: false})
           console.log("updaterecord: ", resp);
         })
         .catch(err => {
@@ -219,34 +222,47 @@ export default class Records extends Component {
     handleCancel = () => {
       this.setState({ visible: true });
     };
+    openEdit=(passID)=>{
+      
+      this.state.medRecords.forEach(record=>{
+        if (record.recordID === passID){
+          this.setState({indRecID: passID, title: record.title, findings: record.findings, 
+            pcpName:record.name,editingRecord:true, open:true})
+          return
+        }
+      })
+    }
 
   render() {
     if (this.state.toHome === true) {
       return <Redirect to="/home" />;
     }
+    var modalButtons = this.state.editingRecord ? (<div><Button positive icon="checkmark" labelPosition="right"content="Update"onClick={this.editForRecords}/></div>): (
+      <div><Button  negative  onClick={e => this.setState({ open: false })}><Icon name='remove'/> Cancel</Button>  
+      <Button positive icon="checkmark" labelPosition="right"content="Save"onClick={this.handleSaveMed}/></div>)
     const { open, size } = this.state;
     const pageTitle = this.state.updating ? (
-      <h1 id="record">Clinical Record Form</h1>
+      <h1 className="title-text">Clinical Record Form</h1>
     ) : (
-      <h1 id="infopatient">Patient Information</h1>
+      <h1 className="title-text">Patient Information</h1>
     );
     const allmedicalrecords = this.state.medRecords.map(element =>
-      <div><AddedRecords   record={element}/><br/></div>);
+      <div><AddedRecords  onClick={this.openEdit} record={element}/><br/></div>);
     //add medical records
     const addmed = this.state.updating ? (
       <div>
-        <h2> Medical Condition :</h2>
-        <div id="ShowMedicalRecords"></div>
+        <h2 className="emercontact"> Medical Condition </h2>
         <div>{allmedicalrecords}</div>
         <Button color="teal" onClick={this.show("large")}> Add Medical Record </Button>
         <div>
-          <Modal  size={size} open={open} onClose={this.close}>
+          <Container>
+          <Modal id = "modal"  size={size} open={open} onClose={this.close}>
             <Modal.Header>Add Medical Record </Modal.Header>
             <Modal.Content>
               <Form>
                 <div>
                   <p><b> New Record:</b></p>
-                  <p>Date: {this.state.today}</p>
+                  <p>Date: {new Date(this.state.today).toDateString()}</p>
                   <Form.Input fluid label="Condition: " value={this.state.title} placeholder="What is Patient's Condition? " onChange={e => this.setState({ title: e.target.value })} />
                   <b><p>Findings:</p></b>
                   <TextArea placeholder="What is your findings? " value={this.state.findings} onChange={e => this.setState({ findings: e.target.value })}
@@ -256,19 +272,18 @@ export default class Records extends Component {
                 </div>
               </Form>
             </Modal.Content>
-
             <Modal.Actions>
-              <Button  negative  onClick={e => this.setState({ open: false })}><Icon name='remove' /> Cancel</Button>  
-              <Button positive icon="checkmark" labelPosition="right"content="Save"onClick={this.handleSaveMed}/>
+              <div>{modalButtons}</div>
             </Modal.Actions>
           </Modal>
+          </Container>
         </div><br/>
         <Segment id="segment" inverted color='teal'>
           <Button id = "segment-btn" basic inverted color="teal" onClick={this.handleSubmit}> Update </Button>
           <Link to="home">
             <Button id = "segment-btn" basic inverted color="teal" onClick={this.onClick}> Cancel</Button>
           </Link>
-        </Segment><br/>
+        </Segment>
       </div>
     ) : (
       <Segment id="segment" inverted color='teal'>
@@ -287,7 +302,7 @@ export default class Records extends Component {
                 <center>{pageTitle}</center>
               </div><br/><br/>
               <div>
-                <h2> Personal Details</h2>
+                <h2 className="emercontact"> Personal Details</h2>
                 <Form.Group widths="equal">
                   <Form.Input icon="pencil alternate" fluid label="First Name" placeholder="First Name" 
                   value={this.state.fname} onChange={e => this.setState({ fname: e.target.value })} id="input" />
@@ -318,7 +333,7 @@ export default class Records extends Component {
                 </Form.Group><br/>
               </div>
               <div>
-                <h2>Emergency Contact</h2>
+                <h2 className="emercontact">Emergency Contact</h2>
                 <Form.Group widths="equal">
                   <Form.Input fluid icon="pencil" id="input" label="First name" placeholder="First name"
                     value={this.state.emercontfname}  onChange={e =>this.setState({ emercontfname: e.target.value })} />
@@ -339,7 +354,7 @@ export default class Records extends Component {
                 <Form.Input fluid icon="pencil" id="input" label="Relationship "  placeholder="Relationship"
                   value={this.state.relationship} onChange={e =>this.setState({ relationship: e.target.value })} /><br/>
               </div><br/>
-              <div>{addmed}</div>
+              <div>{addmed}</div><br/>
             </Form>
           </Card>
         </Container>

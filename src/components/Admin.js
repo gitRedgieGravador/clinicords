@@ -53,16 +53,6 @@ export default class Admin extends Component {
             tempArray.push(myobj);
           }
         });
-        // for (let i = 0; i < datai.length; ++i) {
-        //   if (i >= 0 && !datai[i].isAdmin) {
-        //     let myobj = {
-        //       id: datai[i]._id,
-        //       fullname: datai[i].firstname + " " + datai[i].lastname,
-        //       profession: datai[i].profession
-        //     };
-        //     tempArray.push(myobj);
-        //   }
-        // }
         this.setState({ users: tempArray });
         console.log("array ", this.state.users);
       })
