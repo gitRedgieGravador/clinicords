@@ -118,7 +118,7 @@ export default class Records extends Component {
       })
       .catch(err => {
         console.log(err);
-        alert("Something went Wrong in the network!!!");
+        alert("Check Your Inputs!!!");
       });
   };
   async handleSubmit(e) {
@@ -238,9 +238,7 @@ export default class Records extends Component {
         <h2> Medical Condition :</h2>
         <div id="ShowMedicalRecords"></div>
         <div>{allmedicalrecords}</div>
-        <Button color="teal" onClick={this.show("large")}>
-          Add Medical Record
-        </Button>
+        <Button color="teal" onClick={this.show("large")}> Add Medical Record </Button>
         <div>
           <Modal  size={size} open={open} onClose={this.close}>
             <Modal.Header>Add Medical Record </Modal.Header>
@@ -249,63 +247,34 @@ export default class Records extends Component {
                 <div>
                   <p><b> New Record:</b></p>
                   <p>Date: {this.state.today}</p>
-                  <Form.Input
-                    fluid
-                    label="Condition: "
-                    value={this.state.title}
-                    placeholder="What is Patient's Condition? "
-                    onChange={e => this.setState({ title: e.target.value })}
-                  />
+                  <Form.Input fluid label="Condition: " value={this.state.title} placeholder="What is Patient's Condition? " onChange={e => this.setState({ title: e.target.value })} />
                   <b><p>Findings:</p></b>
-                  <TextArea
-                    placeholder="What is your findings? "
-                    value={this.state.findings}
-                    onChange={e => this.setState({ findings: e.target.value })}
+                  <TextArea placeholder="What is your findings? " value={this.state.findings} onChange={e => this.setState({ findings: e.target.value })}
                   /><br/><br/>
-                  <Form.Input
-                    fluid
-                    label="Primary Care Physician/Clinician  Name: "
-                    placeholder="Fullname"
-                    value={this.state.pcpName}
-                    onChange={e => this.setState({ pcpName: e.target.value })}
-                  /><br/>
+                  <Form.Input fluid label="Primary Care Physician/Clinician  Name: " placeholder="Fullname"
+                   value={this.state.pcpName} onChange={e => this.setState({ pcpName: e.target.value })} /><br/>
                 </div>
               </Form>
             </Modal.Content>
+
             <Modal.Actions>
-              <Button  negative  onClick={e => this.setState({ open: false })}>
-              <Icon name='remove' /> Cancel
-              </Button>  
-              <Button
-                positive
-                icon="checkmark"
-                labelPosition="right"
-                content="Save"
-                onClick={this.handleSaveMed}
-              />
+              <Button  negative  onClick={e => this.setState({ open: false })}><Icon name='remove' /> Cancel</Button>  
+              <Button positive icon="checkmark" labelPosition="right"content="Save"onClick={this.handleSaveMed}/>
             </Modal.Actions>
           </Modal>
         </div><br/>
         <Segment id="segment" inverted color='teal'>
-          <Button id = "segment-btn" basic inverted color="teal" onClick={this.handleSubmit}>
-            Update
-          </Button>
+          <Button id = "segment-btn" basic inverted color="teal" onClick={this.handleSubmit}> Update </Button>
           <Link to="home">
-          <Button id = "segment-btn" basic inverted color="teal" onClick={this.onClick}>
-            Cancel
-          </Button>
-        </Link>
+            <Button id = "segment-btn" basic inverted color="teal" onClick={this.onClick}> Cancel</Button>
+          </Link>
         </Segment><br/>
       </div>
     ) : (
       <Segment id="segment" inverted color='teal'>
-        <Button id = "segment-btn" basic inverted color="teal" onClick={this.createToDB}>
-          Add Patient
-        </Button>
+        <Button id = "segment-btn" basic inverted color="teal" onClick={this.createToDB}> Add Patient </Button>
         <Link to="home">
-          <Button id = "segment-btn" basic inverted color="teal" onClick={this.onClick}>
-            Cancel
-          </Button>
+          <Button id = "segment-btn" basic inverted color="teal" onClick={this.onClick}> Cancel </Button>
         </Link>
       </Segment>
     );
@@ -320,175 +289,55 @@ export default class Records extends Component {
               <div>
                 <h2> Personal Details</h2>
                 <Form.Group widths="equal">
-                  <Form.Input
-                    icon="pencil alternate"
-                    fluid
-                    label="First Name"
-                    placeholder="First Name"
-                    value={this.state.fname}
-                    onChange={e => this.setState({ fname: e.target.value })}
-                    id="input"
-                  />
-                  <Form.Input
-                    icon="pencil alternate"
-                    fluid
-                    label="Middle name"
-                    placeholder="Middle Name "
-                    value={this.state.mname}
-                    onChange={e => this.setState({ mname: e.target.value })}
-                    id="input"
-                  />
-                  <Form.Input
-                    icon="pencil alternate"
-                    fluid
-                    label="Last Name"
-                    placeholder="Last Name"
-                    value={this.state.lname}
-                    onChange={e => this.setState({ lname: e.target.value })}
-                    id="input"
-                  />
+                  <Form.Input icon="pencil alternate" fluid label="First Name" placeholder="First Name" 
+                  value={this.state.fname} onChange={e => this.setState({ fname: e.target.value })} id="input" />
+                  <Form.Input icon="pencil alternate" fluid label="Middle name" placeholder="Middle Name "
+                    value={this.state.mname} onChange={e => this.setState({ mname: e.target.value })} id="input" />
+                  <Form.Input icon="pencil alternate" fluid label="Last Name" placeholder="Last Name"
+                    value={this.state.lname} onChange={e => this.setState({ lname: e.target.value })} id="input" />
                 </Form.Group>
                 <Form.Group widths="equal">
-                  <Form.Input
-                    fluid
-                    icon="birthday cake"
-                    label="Date of Birth"
-                    placeholder="Date of Birth"
-                    value={this.state.birthdate}
-                    onChange={e => this.setState({ birthdate: e.target.value })}
-                    id="input"
-                  />
-                  <Form.Input
-                    fluid
-                    icon="calendar"
-                    label="Age"
-                    placeholder="Age"
-                    value={this.state.age}
-                    onChange={e => this.setState({ age: e.target.value })}
-                    id="input"
-                  />
-                  <Form.Input
-                    fluid
-                    icon="call"
-                    label="Contact Number"
-                    placeholder="Contact Number"
-                    value={this.state.contact}
-                    onChange={e => this.setState({ contact: e.target.value })}
-                    id="input"
-                  />
+                  <Form.Input fluid icon="birthday cake" label="Date of Birth" placeholder="Date of Birth"
+                   value={this.state.birthdate} onChange={e => this.setState({ birthdate: e.target.value })} id="input" />
+                  <Form.Input fluid icon="calendar"label="Age" placeholder="Age"
+                    value={this.state.age} onChange={e => this.setState({ age: e.target.value })} id="input" />
+                  <Form.Input fluid icon="call" label="Contact Number" placeholder="Contact Number"
+                    value={this.state.contact} onChange={e => this.setState({ contact: e.target.value })} id="input" />
                 </Form.Group>
                 <Form.Group widths="equal">
-                  <Form.Input
-                    fluid
-                    icon="address book"
-                    label="Address "
-                    placeholder="Address"
-                    value={this.state.address}
-                    onChange={e => this.setState({ address: e.target.value })}
-                    id="input"
-                  />
-                  <Form.Input
-                    fluid
-                    icon="mail"
-                    label="Email"
-                    placeholder="Email"
-                    value={this.state.email}
-                    onChange={e => this.setState({ email: e.target.value })}
-                    id="input"
-                  />
+                  <Form.Input fluid icon="address book" label="Address " placeholder="Address"
+                    value={this.state.address}  onChange={e => this.setState({ address: e.target.value })} id="input" />
+                  <Form.Input fluid icon="mail" label="Email" placeholder="Email"
+                    value={this.state.email} onChange={e => this.setState({ email: e.target.value })} id="input" />
                 </Form.Group><br />
                 <Form.Group widths="equal">
-                  <Dropdown
-                    className="dropdown"
-                    placeholder="Select Sex"
-                    fluid
-                    selection
-                    value={this.state.sex}
-                    onChange={e => this.setState({ sex: e.target.value })}
-                    options={this.state.SexOptions}
-                  /><br />
-                  
-                  <Dropdown
-                    placeholder="Select Status"
-                    fluid
-                    className="dropdown"
-                    selection
-                    value={this.state.status}
-                    onChange={e => this.setState({ status: e.target.value })}
-                    options={this.state.StatusOptions}
-                  />
+                  <Dropdown className="dropdown" placeholder="Select Sex" fluid selection
+                    value={this.state.sex} onChange={e => this.setState({ sex: e.target.value })} options={this.state.SexOptions} /><br />
+                  <Dropdown placeholder="Select Status" fluid className="dropdown" selection
+                    value={this.state.status}  onChange={e => this.setState({ status: e.target.value })} options={this.state.StatusOptions} />
                 </Form.Group><br/>
               </div>
               <div>
                 <h2>Emergency Contact</h2>
                 <Form.Group widths="equal">
-                  <Form.Input
-                    fluid
-                    icon="pencil"
-                    id="input"
-                    label="First name"
-                    placeholder="First name"
-                    value={this.state.emercontfname}
-                    onChange={e =>this.setState({ emercontfname: e.target.value })}
-                  />
-                  <Form.Input
-                    fluid
-                    icon="pencil"
-                    id="input"
-                    label="Middle name"
-                    placeholder="Middle name"
-                    value={this.state.emercontmname}
-                    onChange={e =>this.setState({ emercontmname: e.target.value })}
-                  />
-                  <Form.Input
-                    fluid
-                    icon="pencil"
-                    id="input"
-                    label="Last name"
-                    placeholder="Last name"
-                    value={this.state.emercontlname}
-                    onChange={e =>this.setState({ emercontlname: e.target.value })}
-                  />
+                  <Form.Input fluid icon="pencil" id="input" label="First name" placeholder="First name"
+                    value={this.state.emercontfname}  onChange={e =>this.setState({ emercontfname: e.target.value })} />
+                  <Form.Input fluid icon="pencil" id="input" label="Middle name" placeholder="Middle name" 
+                  value={this.state.emercontmname}  onChange={e =>this.setState({ emercontmname: e.target.value })}/>
+                  <Form.Input fluid icon="pencil"id="input" label="Last name" placeholder="Last name"
+                    value={this.state.emercontlname} onChange={e =>this.setState({ emercontlname: e.target.value })}/>
                 </Form.Group>
                 <br></br>
-                <Form.Input
-                  fluid
-                  id="input"
-                  label="Address "
-                  icon="address book"
-                  placeholder="Address"
-                  value={this.state.emercontaddress}
-                  onChange={e =>this.setState({ emercontaddress: e.target.value })}
-                /><br/>      
+                <Form.Input fluid id="input" label="Address " icon="address book" placeholder="Address"
+                  value={this.state.emercontaddress} onChange={e =>this.setState({ emercontaddress: e.target.value })} /><br/>      
                 <Form.Group widths="equal">
-                  <Form.Input
-                    fluid
-                    id="input"
-                    label="Email"
-                    icon="mail"
-                    placeholder="Email"
-                    value={this.state.emercontemail}
-                    onChange={e =>this.setState({ emercontemail: e.target.value })}
-                  />
-                  <Form.Input
-                    fluid
-                    id="input"
-                    label="Contact Number"
-                    icon="call"
-                    placeholder="Contact Number"
-                    value={this.state.emercontnumber}
-                    onChange={e =>this.setState({ emercontnumber: e.target.value })}
-                  />
+                  <Form.Input fluid id="input" label="Email" icon="mail" placeholder="Email"
+                    value={this.state.emercontemail} onChange={e =>this.setState({ emercontemail: e.target.value })} />
+                  <Form.Input fluid id="input" label="Contact Number" icon="call"  placeholder="Contact Number"
+                    value={this.state.emercontnumber} onChange={e =>this.setState({ emercontnumber: e.target.value })}/>
                 </Form.Group><br/>
-                <Form.Input
-                  fluid
-                  icon="pencil"
-                  id="input"
-                  label="Relationship "
-                  placeholder="Relationship"
-                  value={this.state.relationship}
-                  onChange={e =>this.setState({ relationship: e.target.value })}
-                /><br/>
+                <Form.Input fluid icon="pencil" id="input" label="Relationship "  placeholder="Relationship"
+                  value={this.state.relationship} onChange={e =>this.setState({ relationship: e.target.value })} /><br/>
               </div><br/>
               <div>{addmed}</div>
             </Form>

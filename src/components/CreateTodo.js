@@ -140,25 +140,17 @@ export default class CreateTodo extends Component {
     const update = this.state.updating ? (
       <div>
         <Segment id="segment" inverted color='teal'>
-          <Button id = "segment-btn" basic inverted color="teal" onClick={this.updateForUsers}>
-            Update
-          </Button>
+          <Button id = "segment-btn" basic inverted color="teal" onClick={this.updateForUsers}> Update </Button>
           <Link to="admin">
-          <Button id = "segment-btn" basic inverted color="teal" onClick={this.handleCancel}>
-            Cancel
-          </Button>
-        </Link>
+            <Button id = "segment-btn" basic inverted color="teal" onClick={this.handleCancel}> Cancel </Button>
+          </Link>
         </Segment><br/>
       </div>
     ) : (
       <Segment id="segment" inverted color='teal'>
-        <Button id = "segment-btn" basic inverted color="teal" onClick={this.addtoDB}>
-          Add User
-        </Button>
+        <Button id = "segment-btn" basic inverted color="teal" onClick={this.addtoDB}> Add User </Button>
         <Link to="admin">
-          <Button id = "segment-btn" basic inverted color="teal" onClick={this.handleCancel}>
-            Cancel
-          </Button>
+          <Button id = "segment-btn" basic inverted color="teal" onClick={this.handleCancel}> Cancel </Button>
         </Link>
       </Segment>
     );
@@ -173,76 +165,31 @@ export default class CreateTodo extends Component {
                 <center>{pageTitle}</center>
               </div><br/><br/>
               <div>
-                <Form.Input
-                  fluid
-                  value={this.state.firstname}
-                  label="First Name "
-                  placeholder="firstname"
-                  onChange={e => this.setState({ firstname: e.target.value })}
+                <Form.Input fluid value={this.state.firstname} label="First Name " 
+                placeholder="firstname"onChange={e => this.setState({ firstname: e.target.value })}/>
+                <br />
+                <Form.Input fluid value={this.state.middlename} label="Middle Name "
+                  placeholder="middlename" onChange={e => this.setState({ middlename: e.target.value })}
                 />
                 <br />
-                <Form.Input
-                  fluid
-                  value={this.state.middlename}
-                  label="Middle Name "
-                  placeholder="middlename"
-                  onChange={e => this.setState({ middlename: e.target.value })}
+                <Form.Input fluid value={this.state.lastname} label="Last Name "
+                  placeholder="lastname" onChange={e => this.setState({ lastname: e.target.value })}/>
+                <br />
+                <Form.Input fluid value={this.state.profession} label="Profession "
+                  placeholder="profession" onChange={e => this.setState({ profession: e.target.value })}
                 />
                 <br />
-                <Form.Input
-                  fluid
-                  value={this.state.lastname}
-                  label="Last Name "
-                  placeholder="lastname"
-                  onChange={e => this.setState({ lastname: e.target.value })}
-                />
+                <Form.Input fluid value={this.state.username} label="Username "
+                  placeholder="username" onChange={e => this.setState({ username: e.target.value })} />
                 <br />
-                <Form.Input
-                  fluid
-                  value={this.state.profession}
-                  label="Profession "
-                  placeholder="profession"
-                  onChange={e => this.setState({ profession: e.target.value })}
-                />
-                <br />
-                <Form.Input
-                  fluid
-                  value={this.state.username}
-                  label="Username "
-                  placeholder="username"
-                  onChange={e => this.setState({ username: e.target.value })}
-                />
-                <br />
-                <Form.Input
-                  fluid
-                  value={this.state.password}
-                  type={this.state.hidden1 ? "password" : "text"}
-                  icon={<Icon name={this.state.eyeIcon1} link onClick={this.handleEyeClickpass1} />}
-                  label="Password"
-                  placeholder="password"
-                  onChange={e => this.setState({ password: e.target.value })}
-                />
-                <Form.Input
-                  fluid
-                  value={this.state.repeatpass}                  
-                  type={this.state.hidden2 ? "password" : "text"}
-                  icon={<Icon name={this.state.eyeIcon2} link onClick={this.handleEyeClickpass2} />}
-                  label="Repeat Password"
-                  placeholder="repeat password"
-                  onChange={e => this.setState({ repeatpass: e.target.value })}
-                />
+                <Form.Input fluid value={this.state.password} type={this.state.hidden1 ? "password" : "text"}
+                  icon={<Icon name={this.state.eyeIcon1} link onClick={this.handleEyeClickpass1} />} label="Password"
+                  placeholder="password"onChange={e => this.setState({ password: e.target.value })} />
+                <Form.Input fluid value={this.state.repeatpass}                   type={this.state.hidden2 ? "password" : "text"}
+                  icon={<Icon name={this.state.eyeIcon2} link onClick={this.handleEyeClickpass2} />} label="Repeat Password"
+                  placeholder="repeat password" onChange={e => this.setState({ repeatpass: e.target.value })} />
                 <br />
                 <div>{update}</div>
-                {/* <Segment id="segment" inverted color='teal'>
-                  <Button id="segment-btn" basic inverted color="teal" onClick={this.addtoDB}>
-                    Add User
-                  </Button>
-                  <Link to="admin">
-                    <Button id="segment-btn" basic inverted color="teal" onClick={this.handleCancel}>
-                      Cancel
-                  </Button>
-                  </Link>
-                </Segment> */}
                 <br />
               </div>
             </Form>
