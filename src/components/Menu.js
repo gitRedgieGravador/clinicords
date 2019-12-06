@@ -113,7 +113,7 @@ export default class Menu extends Component {
     let header = (
       <div >
         <div style={{ lineHeight: "1.87em"}}>
-          <h1 className="mydecor">Current Patients</h1>
+          <h1 className="mydecor outlined">Current Patients</h1>
         </div>
         <div>
           <Form.Input
@@ -136,15 +136,6 @@ export default class Menu extends Component {
           </a>
           <div className="collpase nav-collapse">
             <ul className="navbar-nav mr-auto">
-              {/* <li>
-                <div>
-                  <Link to="/home">
-                    <Button variant="outline-info" inverted>
-                      <Icon name='home' /> Home
-                  </Button>
-                  </Link>
-                </div>
-              </li> */}
               <li>
                 <div>
                   <Button variant="outline-info" id="heads"

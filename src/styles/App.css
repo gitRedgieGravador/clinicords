@@ -235,6 +235,7 @@ InputText {
 }
 h1{
   color:rgb(24, 119, 148);
+  text-shadow: -1px -1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, 1px 1px 0 #000;
 }
 #modal{
   height:60%;
@@ -244,13 +245,16 @@ h1{
   margin-right: 5%;
 }
 #inputsearch{
-  background-color: #00ffcc7c;
+  background-color:white;
 }
 body .p-datatable .p-datatable-header{
-  background-color: red;
+  background-color: rgba(46, 233, 220, 0.864) !important;
 }
 .emercontact{
   font-family: Ubuntu;
   font-size: 25px;
   color: #2c7edb;
+}
+.outlined{
+  text-shadow: -1px -1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, 1px 1px 0 #000;
 }

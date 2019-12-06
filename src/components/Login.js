@@ -27,12 +27,13 @@ export default class Login extends Component {
       newpassone:"",
       newpasstwo:"",
       id:null,
-      modalOpen: false
+      modalOpen: false,
+      notifiaction: "PLEASE LOGIN WITH YOUR NEW PASSWORD"
     };
   }
   handleOpen = () => this.setState({ modalOpen: true })
 
-  handleClose = () => this.setState({ modalOpen: false })
+  handleClose = () => this.setState({ modalOpen: false, notifiaction: "PLEASE LOGIN WITH YOUR NEW PASSWORD"})
 
   handleEyeClick = () => {
     if (this.state.hidden) {
@@ -67,24 +68,17 @@ export default class Login extends Component {
             this.setState({ toAdmin: true });
           } else {
             if(resp.data.user.haschange){
-              let body = { username: this.state.username, password: this.state.password };
-              req.login(body).then(respon=>{
-                if(respon.data.status){
-                  localStorage.setItem("isAdmin", "false");
-                  this.setState({ toHome: true });
-                }else{
-                  alert(resp.data.sms);
-                }
-              })
+              localStorage.setItem("isAdmin", "false");
+              this.setState({ toHome: true });
             }else{
               if(this.state.bfchangepass){
                 this.setState({changingpass: true,bfchangepass:false})
               }else if(this.state.changingpass){
-                if (this.state.newpassone===this.state.newpasstwo){
+                if (this.state.newpassone===this.state.newpasstwo && this.state.newpassone!=""){
                   let body = {username: this.username, password: this.state.newpassone, haschange:true}
                   req.updatePass(resp.data.user._id, body).then(respo=>{
                     if(respo.data.status){
-                      this.setState({afchangepass:true, username:"", password:"",changingpass:false, modalOpen:true, hidden:true, eyeIcon: 'eye slash'})
+                      this.setState({notifiaction: "PLEASE LOGIN WITH YOUR NEW PASSWORD", afchangepass:true, username:"", password:"",changingpass:false, modalOpen:true, hidden:true, eyeIcon: 'eye slash'})
                     }else{
                       console.log("sms: ",respo.data.sms);
                     }
@@ -96,7 +90,8 @@ export default class Login extends Component {
             }
           }
         } else {
-          alert(resp.data.sms);
+          this.setState({notifiaction: resp.data.sms,modalOpen: true})
+          //alert(resp.data.sms);
         }
       })
       .catch(err => {
@@ -193,8 +188,8 @@ export default class Login extends Component {
       
         <div id="reminder">
         <center>
-          <h1>Reminder</h1>
-          <h3>PLEASE LOGIN WITH YOUR NEW PASSWORD</h3>
+          <h4>Reminder</h4>
+          <h3>{this.state.notifiaction}</h3>
           </center>
           </div>
         <Modal.Actions>

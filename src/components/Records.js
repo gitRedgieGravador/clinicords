@@ -5,6 +5,7 @@ import { Link, Redirect } from "react-router-dom";
 import req from "../helper/api";
 import App from "../styles/App.css";
 import "semantic-ui-css/semantic.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import AddedRecords from './AddedRecords'
 export default class Records extends Component {
   constructor(props) {
@@ -47,7 +48,9 @@ export default class Records extends Component {
       updating: false,
       today: new Date().toLocaleString(),
       editingRecord: false,
-      indRecID: null
+      indRecID: null,
+      modalOpen:false,
+      notifiaction:""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.editForRecords = this.editForRecords.bind(this);
@@ -120,7 +123,7 @@ export default class Records extends Component {
       })
       .catch(err => {
         console.log(err);
-        alert("Check Your Inputs!!!");
+        this.setState({notifiaction: "Every Field is Required!!!", modalOpen: true})
       });
   };
   async handleSubmit(e) {
@@ -147,13 +150,17 @@ export default class Records extends Component {
     await req
       .updatePatient(this.props.location.state.id, body)
       .then(resp => {
-        this.setState({ toHome: true });
+        // if(body!=""){
+          this.setState({ toHome: true });
+        // }
+        
+        
       })
       .catch(err => {
         console.log(err);
+        this.setState({notifiaction: "Every Field is Required!!!", modalOpen: true})
       });
   }
-
   handleChange = (e, { status }) => {
     e.preventDefault();
     this.setState({ status });
@@ -162,7 +169,7 @@ export default class Records extends Component {
     e.preventDefault();
     this.setState({ sex });
   };
-  show = size => () => this.setState({ size, open: true ,title:"",findings:"",pcpName:""});
+  show = size => () => this.setState({ size, open: true ,title:"",findings:"",pcpName:"",editingRecord:false });
   close = () => this.setState({ open: false });
   getNow = () => {
     req
@@ -233,11 +240,15 @@ export default class Records extends Component {
       })
     }
 
+    handleClose=()=>{
+      this.setState({modalOpen:false})
+    }
+
   render() {
     if (this.state.toHome === true) {
       return <Redirect to="/home" />;
     }
-    var modalButtons = this.state.editingRecord ? (<div><Button positive icon="checkmark" labelPosition="right"content="Update"onClick={this.editForRecords}/></div>): (
+    var modalButtons = this.state.editingRecord ? (<div><Button  negative  onClick={e => this.setState({ open: false })}><Icon name='remove'/> Cancel</Button> <Button positive icon="checkmark" labelPosition="right"content="Update"onClick={this.editForRecords}/></div>): (
       <div><Button  negative  onClick={e => this.setState({ open: false })}><Icon name='remove'/> Cancel</Button>  
       <Button positive icon="checkmark" labelPosition="right"content="Save"onClick={this.handleSaveMed}/></div>)
     const { open, size } = this.state;
@@ -257,11 +268,10 @@ export default class Records extends Component {
         <div>
           <Container>
           <Modal id = "modal"  size={size} open={open} onClose={this.close}>
-            <Modal.Header>Add Medical Record </Modal.Header>
+            <Modal.Header>Medical Record </Modal.Header>
             <Modal.Content>
               <Form>
                 <div>
-                  <p><b> New Record:</b></p>
                   <p>Date: {new Date(this.state.today).toDateString()}</p>
                   <Form.Input fluid label="Condition: " value={this.state.title} placeholder="What is Patient's Condition? " onChange={e => this.setState({ title: e.target.value })} />
                   <b><p>Findings:</p></b>
@@ -314,9 +324,9 @@ export default class Records extends Component {
                 <Form.Group widths="equal">
                   <Form.Input fluid icon="birthday cake" label="Date of Birth" placeholder="Date of Birth"
                    value={this.state.birthdate} onChange={e => this.setState({ birthdate: e.target.value })} id="input" />
-                  <Form.Input fluid icon="calendar"label="Age" placeholder="Age"
+                  <Form.Input fluid icon="calendar"type = "number"label="Age" placeholder="Age"
                     value={this.state.age} onChange={e => this.setState({ age: e.target.value })} id="input" />
-                  <Form.Input fluid icon="call" label="Contact Number" placeholder="Contact Number"
+                  <Form.Input fluid icon="call" type="number" label="Contact Number" placeholder="Contact Number"
                     value={this.state.contact} onChange={e => this.setState({ contact: e.target.value })} id="input" />
                 </Form.Group>
                 <Form.Group widths="equal">
@@ -348,7 +358,7 @@ export default class Records extends Component {
                 <Form.Group widths="equal">
                   <Form.Input fluid id="input" label="Email" icon="mail" placeholder="Email"
                     value={this.state.emercontemail} onChange={e =>this.setState({ emercontemail: e.target.value })} />
-                  <Form.Input fluid id="input" label="Contact Number" icon="call"  placeholder="Contact Number"
+                  <Form.Input fluid id="input" type = "number" label="Contact Number" icon="call"  placeholder="Contact Number"
                     value={this.state.emercontnumber} onChange={e =>this.setState({ emercontnumber: e.target.value })}/>
                 </Form.Group><br/>
                 <Form.Input fluid icon="pencil" id="input" label="Relationship "  placeholder="Relationship"
@@ -358,6 +368,25 @@ export default class Records extends Component {
             </Form>
           </Card>
         </Container>
+        <Modal
+        open={this.state.modalOpen}
+        onClose={this.handleClose}
+        basic
+      >
+      
+        <div id="reminder">
+        <center>
+          <h4>Reminder</h4>
+          <h3>{this.state.notifiaction}</h3>
+          </center>
+          </div>
+        <Modal.Actions>
+          <Button variant="outline-success"  onClick={this.handleClose} inverted>
+            <Icon name='checkmark' /> Got it
+          </Button>
+        </Modal.Actions>
+      
+      </Modal>
       </div>
     );
   }
