@@ -50,7 +50,7 @@ export default class Records extends Component {
       editingRecord: false,
       indRecID: null,
       modalOpen:false,
-      notifiaction:""
+      notifiaction:"",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.editForRecords = this.editForRecords.bind(this);
@@ -113,7 +113,6 @@ export default class Records extends Component {
       relationship: this.state.relationship,
       currentdate: new Date()
     };
-    console.log("profile ", profile);
     req
       .addPatient(profile)
       .then(resp => {
@@ -147,12 +146,14 @@ export default class Records extends Component {
       emercontemail: this.state.emercontemail,
       relationship: this.state.relationship
     };
+    console.log(body)
     await req
       .updatePatient(this.props.location.state.id, body)
+     
       .then(resp => {
-        // if(body!=""){
+        if(resp.body!=""){
           this.setState({ toHome: true });
-        // }
+        }
         
         
       })
@@ -330,7 +331,7 @@ export default class Records extends Component {
                     value={this.state.contact} onChange={e => this.setState({ contact: e.target.value })} id="input" />
                 </Form.Group>
                 <Form.Group widths="equal">
-                  <Form.Input fluid icon="address book" label="Address " placeholder="Address"
+                  <Form.Input fluid icon="address book"  label="Address " placeholder="Address"
                     value={this.state.address}  onChange={e => this.setState({ address: e.target.value })} id="input" />
                   <Form.Input fluid icon="mail" label="Email" placeholder="Email"
                     value={this.state.email} onChange={e => this.setState({ email: e.target.value })} id="input" />

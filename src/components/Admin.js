@@ -31,7 +31,8 @@ export default class Admin extends Component {
     if (isAdminLocal === "true") {
       this.setState({ isNotAllowed: false });
       this.getNow();
-    } else {
+    } 
+    else  {
       this.setState({ isNotAllowed: true });
     }
   }
@@ -42,7 +43,6 @@ export default class Admin extends Component {
         console.log(resp);
         var tempArray = [];
         let datai = resp.data.data;
-
         datai.forEach(element => {
           if (!element.isAdmin) {
             let myobj = {
