@@ -13,6 +13,7 @@ export default class AddedRecords extends Component {
   }
   render() {
     const header = (
+      <div id = "recedit">
       <Container>
       <Row>
         <Col sm={11}>
@@ -26,7 +27,7 @@ export default class AddedRecords extends Component {
         </Col> 
       </Row>
       </Container>
-      
+      </div>
     );
     return (
       <div>

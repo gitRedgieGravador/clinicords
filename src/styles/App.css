@@ -167,6 +167,9 @@ InputText {
   height: 250px;
   width: 100%;
 }
+#joke{
+  widows: 90%;
+}
 .inpLogin {
   
   width: 100% !important;
@@ -261,4 +264,7 @@ body .p-datatable .p-datatable-header{
 }
 .outlined{
   text-shadow: -1px -1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, 1px 1px 0 #000;
+}
+#recedit{
+  width:100%;
 }

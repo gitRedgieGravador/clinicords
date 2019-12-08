@@ -8,7 +8,7 @@ import { Card } from "primereact/card";
 import { Button } from "react-bootstrap";
 import { Dialog } from "primereact/dialog";
 import req from "../helper/api";
-import {Icon } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default class Admin extends Component {
@@ -31,8 +31,7 @@ export default class Admin extends Component {
     if (isAdminLocal === "true") {
       this.setState({ isNotAllowed: false });
       this.getNow();
-    } 
-    else  {
+    } else {
       this.setState({ isNotAllowed: true });
     }
   }
@@ -85,6 +84,10 @@ export default class Admin extends Component {
         console.log(err);
       });
   }
+  onClick = () => {
+    this.setState({ visible: true });
+    localStorage.setItem("isAdmin", null);
+  };
 
   render() {
     if (this.state.isNotAllowed === true) {
@@ -106,15 +109,6 @@ export default class Admin extends Component {
           <h1 className="mydecor"> List Of Users</h1>
         </div>
         <div>
-          {/* <Form.Input
-                  type="search"
-                  icon="search"
-                  fluid
-                  placeholder="Search for patient"
-                  value={this.state.firstname}
-                  onChange={e => this.setState({ globalFilter: e.target.value })}
-                  id="input"
-                /> */}
         </div>
       </div>
     );
@@ -128,18 +122,25 @@ export default class Admin extends Component {
             <ul className="navbar-nav mr-auto">
               <li>
                 <div>
-                  <Button variant="outline-info" id = "adminhead"
-                    onClick={this.userAdd} inverted>
-                    <Icon name='add' /> Add User
-                    </Button>
+                  <Button
+                    variant="outline-info"
+                    id="adminhead"
+                    onClick={this.userAdd}
+                    inverted
+                  >
+                    <Icon name="add" /> Add User
+                  </Button>
                 </div>
               </li>
               <li>
                 <div className="form-group">
                   <Link to="/">
-                    <Button variant="outline-info"
-                      onClick={this.handleClose} inverted>
-                      <Icon name='checkmark' /> Logout
+                    <Button
+                      variant="outline-info"
+                      onClick={this.onClick}
+                      inverted
+                    >
+                      <Icon name="checkmark" /> Logout
                     </Button>
                   </Link>
                 </div>
@@ -178,16 +179,24 @@ export default class Admin extends Component {
               <br />
               <div className="p-grid">
                 <div className="p-col">
-                <Button variant="outline-success" className="block"
-                     onClick={this.userEdit} inverted>
-                      <Icon name='checkmark' /> Edit
-                    </Button>
+                  <Button
+                    variant="outline-success"
+                    className="block"
+                    onClick={this.userEdit}
+                    inverted
+                  >
+                    <Icon name="checkmark" /> Edit
+                  </Button>
                 </div>
                 <div className="p-col">
-                   <Button variant="outline-danger" className="block"
-                     onClick={this.handleDelete} inverted>
-                      <Icon name='remove' /> Delete
-                    </Button>
+                  <Button
+                    variant="outline-danger"
+                    className="block"
+                    onClick={this.handleDelete}
+                    inverted
+                  >
+                    <Icon name="remove" /> Delete
+                  </Button>
                 </div>
               </div>
             </Dialog>

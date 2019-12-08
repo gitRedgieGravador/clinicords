@@ -122,7 +122,6 @@ export default class Records extends Component {
       })
       .catch(err => {
         console.log(err);
-        this.setState({notifiaction: "Every Field is Required!!!", modalOpen: true})
       });
   };
   async handleSubmit(e) {
@@ -151,15 +150,10 @@ export default class Records extends Component {
       .updatePatient(this.props.location.state.id, body)
      
       .then(resp => {
-        if(resp.body!=""){
           this.setState({ toHome: true });
-        }
-        
-        
       })
       .catch(err => {
-        console.log(err);
-        this.setState({notifiaction: "Every Field is Required!!!", modalOpen: true})
+        console.log(err)
       });
   }
   handleChange = (e, { status }) => {
@@ -241,9 +235,9 @@ export default class Records extends Component {
       })
     }
 
-    handleClose=()=>{
-      this.setState({modalOpen:false})
-    }
+    // handleClose=()=>{
+    //   this.setState({modalOpen:false})
+    // }
 
   render() {
     if (this.state.toHome === true) {
@@ -315,79 +309,60 @@ export default class Records extends Component {
               <div>
                 <h2 className="emercontact"> Personal Details</h2>
                 <Form.Group widths="equal">
-                  <Form.Input icon="pencil alternate" fluid label="First Name" placeholder="First Name" 
+                  <Form.Input icon="pencil alternate" required={true} fluid label="First Name" placeholder="First Name" 
                   value={this.state.fname} onChange={e => this.setState({ fname: e.target.value })} id="input" />
-                  <Form.Input icon="pencil alternate" fluid label="Middle name" placeholder="Middle Name "
+                  <Form.Input icon="pencil alternate" required={true} fluid label="Middle name" placeholder="Middle Name "
                     value={this.state.mname} onChange={e => this.setState({ mname: e.target.value })} id="input" />
-                  <Form.Input icon="pencil alternate" fluid label="Last Name" placeholder="Last Name"
+                  <Form.Input icon="pencil alternate" required={true} fluid label="Last Name" placeholder="Last Name"
                     value={this.state.lname} onChange={e => this.setState({ lname: e.target.value })} id="input" />
                 </Form.Group>
                 <Form.Group widths="equal">
-                  <Form.Input fluid icon="birthday cake" label="Date of Birth" placeholder="Date of Birth"
+                  <Form.Input fluid icon="birthday cake" required={true} label="Date of Birth" placeholder="Date of Birth"
                    value={this.state.birthdate} onChange={e => this.setState({ birthdate: e.target.value })} id="input" />
-                  <Form.Input fluid icon="calendar"type = "number"label="Age" placeholder="Age"
+                  <Form.Input fluid icon="calendar" required={true} type = "number"label="Age" placeholder="Age"
                     value={this.state.age} onChange={e => this.setState({ age: e.target.value })} id="input" />
-                  <Form.Input fluid icon="call" type="number" label="Contact Number" placeholder="Contact Number"
+                  <Form.Input fluid icon="call" required={true}  type="number" label="Contact Number" placeholder="Contact Number"
                     value={this.state.contact} onChange={e => this.setState({ contact: e.target.value })} id="input" />
                 </Form.Group>
                 <Form.Group widths="equal">
-                  <Form.Input fluid icon="address book"  label="Address " placeholder="Address"
+                  <Form.Input fluid icon="address book" required={true} label="Address " placeholder="Address"
                     value={this.state.address}  onChange={e => this.setState({ address: e.target.value })} id="input" />
-                  <Form.Input fluid icon="mail" label="Email" placeholder="Email"
+                  <Form.Input fluid icon="mail" required={true} label="Email" placeholder="Email"
                     value={this.state.email} onChange={e => this.setState({ email: e.target.value })} id="input" />
                 </Form.Group><br />
                 <Form.Group widths="equal">
-                  <Dropdown className="dropdown" placeholder="Select Sex" fluid selection
+                  <Dropdown className="dropdown" required={true} placeholder="Select Sex" fluid selection
                     value={this.state.sex} onChange={e => this.setState({ sex: e.target.value })} options={this.state.SexOptions} /><br />
-                  <Dropdown placeholder="Select Status" fluid className="dropdown" selection
+                  <Dropdown placeholder="Select Status" required={true} fluid className="dropdown" selection
                     value={this.state.status}  onChange={e => this.setState({ status: e.target.value })} options={this.state.StatusOptions} />
                 </Form.Group><br/>
               </div>
               <div>
                 <h2 className="emercontact">Emergency Contact</h2>
                 <Form.Group widths="equal">
-                  <Form.Input fluid icon="pencil" id="input" label="First name" placeholder="First name"
+                  <Form.Input required={true} fluid icon="pencil" id="input" label="First name" placeholder="First name"
                     value={this.state.emercontfname}  onChange={e =>this.setState({ emercontfname: e.target.value })} />
-                  <Form.Input fluid icon="pencil" id="input" label="Middle name" placeholder="Middle name" 
+                  <Form.Input required={true} fluid icon="pencil" id="input" label="Middle name" placeholder="Middle name" 
                   value={this.state.emercontmname}  onChange={e =>this.setState({ emercontmname: e.target.value })}/>
-                  <Form.Input fluid icon="pencil"id="input" label="Last name" placeholder="Last name"
+                  <Form.Input required={true} fluid icon="pencil"id="input" label="Last name" placeholder="Last name"
                     value={this.state.emercontlname} onChange={e =>this.setState({ emercontlname: e.target.value })}/>
                 </Form.Group>
                 <br></br>
-                <Form.Input fluid id="input" label="Address " icon="address book" placeholder="Address"
+                <Form.Input required={true} fluid id="input" label="Address " icon="address book" placeholder="Address"
                   value={this.state.emercontaddress} onChange={e =>this.setState({ emercontaddress: e.target.value })} /><br/>      
                 <Form.Group widths="equal">
-                  <Form.Input fluid id="input" label="Email" icon="mail" placeholder="Email"
+                  <Form.Input required={true} fluid id="input" label="Email" icon="mail" placeholder="Email"
                     value={this.state.emercontemail} onChange={e =>this.setState({ emercontemail: e.target.value })} />
-                  <Form.Input fluid id="input" type = "number" label="Contact Number" icon="call"  placeholder="Contact Number"
+                  <Form.Input required={true} fluid id="input" type = "number" label="Contact Number" icon="call"  placeholder="Contact Number"
                     value={this.state.emercontnumber} onChange={e =>this.setState({ emercontnumber: e.target.value })}/>
                 </Form.Group><br/>
-                <Form.Input fluid icon="pencil" id="input" label="Relationship "  placeholder="Relationship"
+                <Form.Input required={true} fluid icon="pencil" id="input" label="Relationship "  placeholder="Relationship"
                   value={this.state.relationship} onChange={e =>this.setState({ relationship: e.target.value })} /><br/>
               </div><br/>
               <div>{addmed}</div><br/>
             </Form>
           </Card>
         </Container>
-        <Modal
-        open={this.state.modalOpen}
-        onClose={this.handleClose}
-        basic
-      >
-      
-        <div id="reminder">
-        <center>
-          <h4>Reminder</h4>
-          <h3>{this.state.notifiaction}</h3>
-          </center>
-          </div>
-        <Modal.Actions>
-          <Button variant="outline-success"  onClick={this.handleClose} inverted>
-            <Icon name='checkmark' /> Got it
-          </Button>
-        </Modal.Actions>
-      
-      </Modal>
       </div>
     );
   }
